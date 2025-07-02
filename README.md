@@ -8,36 +8,37 @@
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 20px;
-            background-color: #f0f2f5;
+            background-color: #f4f6f9;
             color: #333;
             line-height: 1.6;
         }
         h1 {
             text-align: center;
             color: #1a73e8;
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         table {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             border-collapse: collapse;
             background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
             overflow: hidden;
         }
         th, td {
-            padding: 12px 15px;
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e0e0e0;
         }
         th {
             background-color: #1a73e8;
             color: white;
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
         td {
             font-size: 1em;
@@ -59,7 +60,7 @@
         .mains {
             font-weight: bold;
         }
-        /* Alternating row colors for readability */
+        /* Alternating row colors */
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
@@ -69,13 +70,13 @@
         /* Responsive design for mobile */
         @media (max-width: 600px) {
             table {
-                font-size: 0.9em;
+                font-size: 0.85em;
             }
             th, td {
-                padding: 8px;
+                padding: 10px;
             }
             h1 {
-                font-size: 1.5em;
+                font-size: 1.8em;
             }
         }
     </style>
