@@ -7,27 +7,33 @@
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
             background-color: #f4f6f9;
             color: #333;
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Ensures full viewport height */
         }
         h1 {
-            text-align: center;
             color: #1a73e8;
             font-size: 2.2em;
-            margin-bottom: 25px;
+            margin: 20px 0;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         table {
             width: 100%;
             max-width: 1000px;
-            margin: 0 auto;
             border-collapse: collapse;
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             border-radius: 10px;
             overflow: hidden;
+            margin: 20px 0;
         }
         th, td {
             padding: 15px;
@@ -77,6 +83,9 @@
             }
             h1 {
                 font-size: 1.8em;
+            }
+            body {
+                padding: 10px;
             }
         }
     </style>
