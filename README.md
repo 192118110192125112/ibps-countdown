@@ -1,74 +1,46 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBPS Exam Countdown 2025 (Date-Wise, Text Colored, Mains Bold)</title>
+    <title>IBPS Exam Countdown 2025</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f4;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #1a73e8;
+            font-size: 2em;
+            margin-bottom: 20px;
         }
         table {
             width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
+            max-width: 900px;
+            margin: 0 auto;
             border-collapse: collapse;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         th, td {
-            padding: 10px;
+            padding: 12px 15px;
             text-align: left;
-            border: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
         }
         th {
-            background-color: #4CAF50;
+            background-color: #1a73e8;
             color: white;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        td {
+            font-size: 1em;
         }
         /* Exam-specific text colors */
         .exam-po {
@@ -87,16 +59,29 @@
         .mains {
             font-weight: bold;
         }
+        /* Alternating row colors for readability */
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #e8f0fe;
+        }
+        /* Responsive design for mobile */
+        @media (max-width: 600px) {
+            table {
+                font-size: 0.9em;
+            }
+            th, td {
+                padding: 8px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>IBPS Exam Countdown 2025 (Date-Wise, Text Colored, Mains Bold)</h1>
+    <h1>IBPS Exam Countdown 2025</h1>
     <table id="examTable">
         <thead>
             <tr>
@@ -143,11 +128,9 @@
         // Flatten exam data into an array of {date, examName, type, class}
         const dateEntries = [];
         exams.forEach(exam => {
-            // Add Preliminary dates
             exam.prelimDates.forEach(date => {
                 dateEntries.push({ date, examName: exam.name, type: "Prelims", class: exam.class });
             });
-            // Add Mains date
             dateEntries.push({ date: exam.mainsDate, examName: exam.name, type: "Mains", class: exam.class });
         });
 
@@ -158,7 +141,6 @@
         function getDaysUntil(targetDate) {
             const today = new Date();
             const target = new Date(targetDate);
-            // Set time to midnight to avoid time-of-day discrepancies
             today.setHours(0, 0, 0, 0);
             target.setHours(0, 0, 0, 0);
             const diffTime = target - today;
@@ -178,7 +160,6 @@
         dateEntries.forEach(entry => {
             const row = document.createElement('tr');
             const daysUntil = getDaysUntil(entry.date);
-            // Apply exam-specific text color class and bold for Mains
             row.className = `${entry.class} ${entry.type === 'Mains' ? 'mains' : ''}`;
             row.innerHTML = `
                 <td>${formatDate(entry.date)}</td>
