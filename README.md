@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBPS Exam Countdown 2025</title>
+    <title>Bank Exam Countdown 2025</title>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -15,7 +16,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh; /* Ensures full viewport height */
+            min-height: 100vh;
         }
         h1 {
             color: #1a73e8;
@@ -48,7 +49,6 @@
         td {
             font-size: 1em;
         }
-        /* Exam-specific text colors */
         .exam-po {
             color: #1a73e8; /* Blue for IBPS PO */
         }
@@ -61,18 +61,18 @@
         .exam-rrb-clerk {
             color: #c2185b; /* Pink for IBPS RRB Clerk */
         }
-        /* Bold for Mains rows */
+        .exam-sbi-clerk {
+            color: #6a1b9a; /* Purple for SBI Clerk */
+        }
         .mains {
             font-weight: bold;
         }
-        /* Alternating row colors */
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
         tr:hover {
             background-color: #e8f0fe;
         }
-        /* Responsive design for mobile */
         @media (max-width: 600px) {
             table {
                 font-size: 0.85em;
@@ -90,7 +90,7 @@
     </style>
 </head>
 <body>
-    <h1>IBPS Exam Countdown 2025</h1>
+    <h1>Bank Exam Countdown 2025</h1>
     <table id="examTable">
         <thead>
             <tr>
@@ -106,13 +106,19 @@
     </table>
 
     <script>
-        // Exam data from IBPS Calendar 2025-26
+        // Exam data including SBI Clerk Prelims
         const exams = [
             {
                 name: "IBPS PO (CRP PO/MT-XV)",
                 class: "exam-po",
                 prelimDates: ["2025-08-17", "2025-08-23", "2025-08-24"],
                 mainsDate: "2025-10-12"
+            },
+            {
+                name: "SBI Clerk (CRP Clerk)",
+                class: "exam-sbi-clerk",
+                prelimDates: ["2025-09-20", "2025-09-21", "2025-09-27", "2025-09-28"],
+                mainsDate: null // Add Mains date if provided later
             },
             {
                 name: "IBPS Clerk (CRP CSA-XV)",
@@ -134,19 +140,21 @@
             }
         ];
 
-        // Flatten exam data into an array of {date, examName, type, class}
+        // Flatten exam data
         const dateEntries = [];
         exams.forEach(exam => {
             exam.prelimDates.forEach(date => {
                 dateEntries.push({ date, examName: exam.name, type: "Prelims", class: exam.class });
             });
-            dateEntries.push({ date: exam.mainsDate, examName: exam.name, type: "Mains", class: exam.class });
+            if (exam.mainsDate) {
+                dateEntries.push({ date: exam.mainsDate, examName: exam.name, type: "Mains", class: exam.class });
+            }
         });
 
         // Sort by date
         dateEntries.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        // Function to calculate days between two dates
+        // Calculate days until exam
         function getDaysUntil(targetDate) {
             const today = new Date();
             const target = new Date(targetDate);
@@ -157,7 +165,7 @@
             return diffDays >= 0 ? diffDays : "Passed";
         }
 
-        // Function to format date as DD Month YYYY
+        // Format date as DD Month YYYY
         function formatDate(dateStr) {
             const date = new Date(dateStr);
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
