@@ -106,7 +106,7 @@
     </table>
 
     <script>
-        // Exam data including SBI Clerk Prelims
+        // Exam data including SBI Clerk Prelims and Mains
         const exams = [
             {
                 name: "IBPS PO (CRP PO/MT-XV)",
@@ -118,7 +118,7 @@
                 name: "SBI Clerk (CRP Clerk)",
                 class: "exam-sbi-clerk",
                 prelimDates: ["2025-09-20", "2025-09-21", "2025-09-27", "2025-09-28"],
-                mainsDate: null // Add Mains date if provided later
+                mainsDates: ["2025-11-15", "2025-11-16"]
             },
             {
                 name: "IBPS Clerk (CRP CSA-XV)",
@@ -148,6 +148,11 @@
             });
             if (exam.mainsDate) {
                 dateEntries.push({ date: exam.mainsDate, examName: exam.name, type: "Mains", class: exam.class });
+            }
+            if (exam.mainsDates) {
+                exam.mainsDates.forEach(date => {
+                    dateEntries.push({ date, examName: exam.name, type: "Mains", class: exam.class });
+                });
             }
         });
 
