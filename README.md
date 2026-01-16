@@ -45,11 +45,12 @@
             color: white;
             font-weight: 600;
         }
-        .exam-po { color: #1a73e8; }
-        .exam-clerk { color: #2e7d32; }
-        .exam-rrb-po { color: #e65100; }
-        .exam-rrb-clerk { color: #c2185b; }
-        .exam-so { color: #6a1b9a; }
+        /* Specific Exam Colors */
+        .exam-po { color: #1a73e8; }      /* Blue */
+        .exam-clerk { color: #2e7d32; }   /* Green */
+        .exam-rrb-po { color: #e65100; }  /* Orange */
+        .exam-rrb-clerk { color: #c2185b; } /* Pink */
+        
         .mains { font-weight: bold; background-color: #fffde7; }
         .passed { color: #9e9e9e; text-decoration: line-through; }
         tr:hover { background-color: #e8f0fe; }
@@ -99,12 +100,6 @@
                 class: "exam-rrb-clerk",
                 prelimDates: ["2026-12-06", "2026-12-12", "2026-12-13"],
                 mainsDate: "2027-01-30"
-            },
-            {
-                name: "IBPS SO (Specialist Officers)",
-                class: "exam-so",
-                prelimDates: ["2026-08-29"],
-                mainsDate: "2026-11-01"
             }
         ];
 
@@ -118,6 +113,7 @@
             }
         });
 
+        // Sort by date chronologically
         dateEntries.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         function getDaysUntil(targetDate) {
